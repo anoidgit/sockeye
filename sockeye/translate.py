@@ -73,8 +73,6 @@ def run_translate(args: argparse.Namespace):
                                         args.output,
                                         args.sure_align_threshold)
 
-    output_scores = True if args.output_type in C.OUTPUT_HANDLERS_SCORING else False
-
     with ExitStack() as exit_stack:
         check_condition(len(args.device_ids) == 1, "translate only supports single device for now")
         context = determine_context(device_ids=args.device_ids,
@@ -101,7 +99,7 @@ def run_translate(args: argparse.Namespace):
             decoder_return_logit_inputs=args.restrict_lexicon is not None,
             cache_output_layer_w_b=args.restrict_lexicon is not None,
             override_dtype=args.override_dtype,
-            output_scores=output_scores)
+            output_scores=output_handler.reports_score())
         restrict_lexicon = None  # type: Optional[TopKLexicon]
         if args.restrict_lexicon:
             restrict_lexicon = TopKLexicon(source_vocabs[0], target_vocab)

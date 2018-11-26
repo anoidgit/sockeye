@@ -12,8 +12,7 @@ Each version section may have have subsections for: _Added_, _Changed_, _Removed
 
 ## [1.18.59]
 ### Fixed
-- Fixed scores from single-model, greedy decoding:
-The new behaviour is to skip softmax only if the output handler does not output the scores.
+- Performance optimization to skip the softmax operation for single model greedy decoding is now only applied if no translation scores are required in the output.
 
 ## [1.18.58]
 ### Added
